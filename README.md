@@ -43,5 +43,11 @@ The PUT syntax is
 usage example
 http://localhost:8000/put/UFAL/Nome/angry++trebuchet++Shooting++90++kg++projectiles++over++300++meters
 
+http://localhost:8000/put/UFAL/Nome/angry++trebuchet++Shooting++90++kg++projectiles++over++300++meters/Sigla/ATS9KGPO300M
 
+The DELETE syntax is the easiest
+/delete/{college initials}
+
+EX:
+http://localhost:8000/delete/UFAL/
 
