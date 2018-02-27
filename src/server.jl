@@ -1,8 +1,5 @@
-#=using HttpServer
-using Genie
-
-Genie.REPL.new_app("HTTPServer")
-=#
+#Pkg.add("HttpServer")
+#Pkg.add("JSON")
 
 using HttpServer
 using JSON
@@ -42,7 +39,7 @@ http = HttpHandler() do req::Request, res::Response
     	reqtokens = split(req.resource,"/")
     	
     	initials = reqtokens[3]
-    	name = reqtokens[4]
+    	name = normalizename(reqtokens[4])
 
     	if (haskey(colleges,initials))
     		return Response("HTTP ERROR 409")
@@ -69,10 +66,10 @@ http = HttpHandler() do req::Request, res::Response
     		
     		for i=1:length(reqtokens)-1
     			if(reqtokens[i] == "Nome")
-    				colleges[initials]["Nome"] = reqtokens[i+1]
+    				colleges[initials]["Nome"] = normalizename(String(reqtokens[i+1]))
     				i=i+1
     			elseif(reqtokens[i] == "Sigla")
-    				colleges[initials]["Sigla"] = reqtokens[i+1]
+    				colleges[initials]["Sigla"] = normalizename(String(reqtokens[i+1]))
     				i=i+1
     			end
     		end
@@ -104,6 +101,10 @@ http = HttpHandler() do req::Request, res::Response
     	end
     end
 
+end
+
+function normalizename(name::String)
+	return replace(name,"++"," ")
 end
 
 
